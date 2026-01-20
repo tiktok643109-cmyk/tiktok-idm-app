@@ -6,23 +6,24 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: 'stable'
-          flutter-version: '3.19.0' # Version stable recommandée
+      
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Install Dependencies
+
+      - name: Install dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install flet yt-dlp
+
       - name: Build APK
         run: |
-          flet build apk
-      - name: Upload Artifact
+          flet build apk --verbose
+
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: TikTok-IDM-APK
+          name: TikTok-IDM-Final
           path: build/apk/*.apk
           
